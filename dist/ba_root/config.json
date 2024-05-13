@@ -1,0 +1,283 @@
+{
+ "Achievements": {
+  "Boom Goes the Dynamite": {
+   "Complete": false
+  },
+  "Boxer": {
+   "Complete": false
+  },
+  "Dual Wielding": {
+   "Complete": false
+  },
+  "Flawless Victory": {
+   "Complete": false
+  },
+  "Free Loader": {
+   "Complete": false
+  },
+  "Gold Miner": {
+   "Complete": false
+  },
+  "Got the Moves": {
+   "Complete": false
+  },
+  "In Control": {
+   "Complete": false
+  },
+  "Last Stand God": {
+   "Complete": false
+  },
+  "Last Stand Master": {
+   "Complete": false
+  },
+  "Last Stand Wizard": {
+   "Complete": false
+  },
+  "Mine Games": {
+   "Complete": false
+  },
+  "Off You Go Then": {
+   "Complete": false
+  },
+  "Onslaught God": {
+   "Complete": false
+  },
+  "Onslaught Master": {
+   "Complete": false
+  },
+  "Onslaught Training Victory": {
+   "Complete": false
+  },
+  "Onslaught Wizard": {
+   "Complete": false
+  },
+  "Precision Bombing": {
+   "Complete": false
+  },
+  "Pro Boxer": {
+   "Complete": false
+  },
+  "Pro Football Shutout": {
+   "Complete": false
+  },
+  "Pro Football Victory": {
+   "Complete": false
+  },
+  "Pro Onslaught Victory": {
+   "Complete": false
+  },
+  "Pro Runaround Victory": {
+   "Complete": false
+  },
+  "Rookie Football Shutout": {
+   "Complete": false
+  },
+  "Rookie Football Victory": {
+   "Complete": false
+  },
+  "Rookie Onslaught Victory": {
+   "Complete": false
+  },
+  "Runaround God": {
+   "Complete": false
+  },
+  "Runaround Master": {
+   "Complete": false
+  },
+  "Runaround Wizard": {
+   "Complete": false
+  },
+  "Sharing is Caring": {
+   "Complete": false
+  },
+  "Stayin' Alive": {
+   "Complete": false
+  },
+  "Super Mega Punch": {
+   "Complete": false
+  },
+  "Super Punch": {
+   "Complete": false
+  },
+  "TNT Terror": {
+   "Complete": false
+  },
+  "Team Player": {
+   "Complete": true
+  },
+  "The Great Wall": {
+   "Complete": false
+  },
+  "The Wall": {
+   "Complete": false
+  },
+  "Uber Football Shutout": {
+   "Complete": false
+  },
+  "Uber Football Victory": {
+   "Complete": false
+  },
+  "Uber Onslaught Victory": {
+   "Complete": false
+  },
+  "Uber Runaround Victory": {
+   "Complete": false
+  }
+ },
+ "Auto Account State": "Server",
+ "Auto Balance Teams": true,
+ "Campaigns": {},
+ "Custom Team Colors": [
+  [
+   0.1,
+   0.25,
+   1.0
+  ],
+  [
+   1.0,
+   0.25,
+   0.2
+  ]
+ ],
+ "Custom Team Names": [
+  "Pros",
+  "Legends"
+ ],
+ "Default Player Profiles": {
+  "Client Input Device #1": "__account__",
+  "Client Input Device #2": "__account__",
+  "Client Input Device #3": "\u2661Supriya\ud83d\udc96",
+  "Client Input Device #4": "__account__",
+  "Client Input Device #5": "TRI TITAN"
+ },
+ "Fleet Zone Pings": {
+  "prod": {
+   "bahrain": 34.381983274477534,
+   "bangkok": 77.3582434511627,
+   "delhi": 19.32720077468548,
+   "dubai": 28.481278169259895,
+   "hong_kong": 94.33841090180795,
+   "hyderabad": 16.964991675282363,
+   "kolkata": 26.134380408446305,
+   "mumbai": 1.2657712943619117,
+   "singapore": 54.98453582529328,
+   "tel_aviv": 158.51387800648808
+  }
+ },
+ "Free-for-All Playlists": {},
+ "Idle Exit Minutes": null,
+ "Local Account Name": "Server17170969",
+ "PSTR": 0,
+ "Player Profiles": {
+  "__account__": {
+   "character": "Spaz",
+   "color": [
+    0.5,
+    0.25,
+    1.0
+   ],
+   "highlight": [
+    0.5,
+    0.25,
+    1.0
+   ]
+  }
+ },
+ "Plugins": {},
+ "Port": 43210,
+ "Show Tutorial": false,
+ "Signed In Last Session": false,
+ "Team Tournament Playlist Randomize": false,
+ "Team Tournament Playlist Selection": "bsf",
+ "Team Tournament Playlists": {
+  "bsf": [
+   {
+    "settings": {
+     "Balance Total Lives": true,
+     "Epic Mode": true,
+     "Lives Per Player": 5,
+     "Respawn Times": 0.25,
+     "Solo Mode": false,
+     "Time Limit": 0,
+     "map": "Courtyard"
+    },
+    "type": "bastd.game.elimination.EliminationGame"
+   },
+   {
+    "settings": {
+     "Balance Total Lives": true,
+     "Epic Mode": true,
+     "Lives Per Player": 5,
+     "Respawn Times": 0.25,
+     "Solo Mode": false,
+     "Time Limit": 0,
+     "map": "Rampage"
+    },
+    "type": "bastd.game.elimination.EliminationGame"
+   },
+   {
+    "settings": {
+     "Balance Total Lives": true,
+     "Epic Mode": true,
+     "Lives Per Player": 5,
+     "Players Per Team In Arena": 2,
+     "Respawn Times": 0.25,
+     "Time Limit": 0,
+     "map": "Rampage"
+    },
+    "type": "alliance_elimination.AllianceEliminationGame"
+   },
+   {
+    "settings": {
+     "Balance Total Lives": true,
+     "Epic Mode": true,
+     "Lives Per Player": 5,
+     "Respawn Times": 0.25,
+     "Solo Mode": false,
+     "Time Limit": 0,
+     "map": "Football Stadium"
+    },
+    "type": "bastd.game.elimination.EliminationGame"
+   },
+   {
+    "settings": {
+     "Balance Total Lives": true,
+     "Epic Mode": true,
+     "Lives Per Player": 5,
+     "Respawn Times": 0.25,
+     "Solo Mode": false,
+     "Time Limit": 0,
+     "map": "The Pad"
+    },
+    "type": "bastd.game.elimination.EliminationGame"
+   },
+   {
+    "settings": {
+     "Balance Total Lives": true,
+     "Epic Mode": true,
+     "Lives Per Player": 4,
+     "Respawn Times": 0.25,
+     "Solo Mode": false,
+     "Time Limit": 0,
+     "map": "Roundabout"
+    },
+    "type": "bastd.game.elimination.EliminationGame"
+   },
+   {
+    "settings": {
+     "Balance Total Lives": true,
+     "Epic Mode": true,
+     "Lives Per Player": 5,
+     "Respawn Times": 0.25,
+     "Solo Mode": false,
+     "Time Limit": 0,
+     "map": "Monkey Face"
+    },
+    "type": "bastd.game.elimination.EliminationGame"
+   }
+  ]
+ },
+ "launchCount": 11,
+ "lc14173": 1,
+ "lc14292": 1
+}
