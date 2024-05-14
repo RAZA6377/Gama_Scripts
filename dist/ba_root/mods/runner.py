@@ -9,7 +9,8 @@ class File handler(babase.Plugin):
 def run():
     try:
         print("File Importing")
-      
+        from plugins import characterchooser as cc
+        cc.enable()
         print("File Imported")
     except Exception as e:
         print(e)
