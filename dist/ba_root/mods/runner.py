@@ -4,7 +4,7 @@
 
 import babase
 import bascenev1 as bs
-import datafiles.chatfilter as cf
+import plugins.chatfilter as cf
 from datetime import datetime
 import time
 
@@ -16,7 +16,7 @@ class FileRunner(babase.Plugin):
 orginial_begin = bs._activity.Activity.on_begin
 
 def new_begin(self):
-    from datafiles import votingmachine as vm
+    from plugins import votingmachine as vm
     now = datetime.now()
     orginial_begin(self)
     vm.reset_votes()
@@ -29,7 +29,7 @@ def new_filter_chat_message(msg: str, client_id: int) -> str | None:
 def run():
     try:
         print("Importing Custom Files")
-        from datafiles import characterchooser
+        from plugins import characterchooser
         characterchooser.enable()
         bs._activity.Activity.on_begin = new_begin
         from bascenev1 import _hooks
