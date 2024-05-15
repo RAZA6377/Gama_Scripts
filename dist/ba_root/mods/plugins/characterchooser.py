@@ -347,6 +347,7 @@ def _update_text(self) -> None:
 
     self._text_node.text = text
 
+# ba_meta export plugin
 
 def enable():
     _lobby.Chooser.__init__ = __init__
