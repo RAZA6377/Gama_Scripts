@@ -1,0 +1,294 @@
+{
+ "Achievements": {
+  "Boom Goes the Dynamite": {
+   "Complete": false
+  },
+  "Boxer": {
+   "Complete": false
+  },
+  "Dual Wielding": {
+   "Complete": false
+  },
+  "Flawless Victory": {
+   "Complete": false
+  },
+  "Free Loader": {
+   "Complete": false
+  },
+  "Gold Miner": {
+   "Complete": false
+  },
+  "Got the Moves": {
+   "Complete": false
+  },
+  "In Control": {
+   "Complete": false
+  },
+  "Last Stand God": {
+   "Complete": false
+  },
+  "Last Stand Master": {
+   "Complete": false
+  },
+  "Last Stand Wizard": {
+   "Complete": false
+  },
+  "Mine Games": {
+   "Complete": false
+  },
+  "Off You Go Then": {
+   "Complete": false
+  },
+  "Onslaught God": {
+   "Complete": false
+  },
+  "Onslaught Master": {
+   "Complete": false
+  },
+  "Onslaught Training Victory": {
+   "Complete": false
+  },
+  "Onslaught Wizard": {
+   "Complete": false
+  },
+  "Precision Bombing": {
+   "Complete": false
+  },
+  "Pro Boxer": {
+   "Complete": false
+  },
+  "Pro Football Shutout": {
+   "Complete": false
+  },
+  "Pro Football Victory": {
+   "Complete": false
+  },
+  "Pro Onslaught Victory": {
+   "Complete": false
+  },
+  "Pro Runaround Victory": {
+   "Complete": false
+  },
+  "Rookie Football Shutout": {
+   "Complete": false
+  },
+  "Rookie Football Victory": {
+   "Complete": false
+  },
+  "Rookie Onslaught Victory": {
+   "Complete": false
+  },
+  "Runaround God": {
+   "Complete": false
+  },
+  "Runaround Master": {
+   "Complete": false
+  },
+  "Runaround Wizard": {
+   "Complete": false
+  },
+  "Sharing is Caring": {
+   "Complete": false
+  },
+  "Stayin' Alive": {
+   "Complete": false
+  },
+  "Super Mega Punch": {
+   "Complete": false
+  },
+  "Super Punch": {
+   "Complete": false
+  },
+  "TNT Terror": {
+   "Complete": false
+  },
+  "Team Player": {
+   "Complete": true
+  },
+  "The Great Wall": {
+   "Complete": false
+  },
+  "The Wall": {
+   "Complete": false
+  },
+  "Uber Football Shutout": {
+   "Complete": false
+  },
+  "Uber Football Victory": {
+   "Complete": false
+  },
+  "Uber Onslaught Victory": {
+   "Complete": false
+  },
+  "Uber Runaround Victory": {
+   "Complete": false
+  }
+ },
+ "Auto Account State": "Server",
+ "Auto Balance Teams": true,
+ "Campaigns": {},
+ "Custom Team Colors": [
+  [
+   0.0,
+   1.0,
+   1.0
+  ],
+  [
+   1.0,
+   1.0,
+   1.0
+  ]
+ ],
+ "Custom Team Names": [
+  "Eigen",
+  "GAMA"
+ ],
+ "Default Player Profiles": {
+  "Client Input Device #2": "__account__",
+  "Client Input Device #3": "__account__",
+  "Client Input Device #4": "what up yo"
+ },
+ "FFA Series Length": 24,
+ "Fleet Zone Ping Last Flush Time": 1717154370,
+ "Fleet Zone Pings": {
+  "prod": {
+   "delhi.v4": 20.857760481875168,
+   "hyderabad.v4": 21.754341950531973,
+   "mumbai.v4": 1.2334885406904794
+  }
+ },
+ "Free-for-All Playlist Randomize": true,
+ "Free-for-All Playlist Selection": "__default__",
+ "Free-for-All Playlists": {},
+ "Idle Exit Minutes": null,
+ "Local Account Name": "Server17441192",
+ "Player Profiles": {
+  "__account__": {
+   "character": "Spaz",
+   "color": [
+    0.5,
+    0.25,
+    1.0
+   ],
+   "highlight": [
+    0.5,
+    0.25,
+    1.0
+   ]
+  }
+ },
+ "Plugins": {
+  "runner.FileRunner": {
+   "enabled": true
+  }
+ },
+ "Port": 43210,
+ "Show Tutorial": false,
+ "Signed In Last Session": false,
+ "Team Tournament Playlist Randomize": false,
+ "Team Tournament Playlist Selection": "gama",
+ "Team Tournament Playlists": {
+  "gama": [
+   {
+    "settings": {
+     "Balance Total Lives": true,
+     "Epic Mode": true,
+     "Lives Per Player": 5,
+     "Respawn Times": 0.25,
+     "Solo Mode": false,
+     "Time Limit": 0,
+     "map": "Courtyard"
+    },
+    "type": "bascenev1lib.game.elimination.EliminationGame"
+   },
+   {
+    "settings": {
+     "Balance Total Lives": true,
+     "Epic Mode": true,
+     "Lives Per Player": 2,
+     "Respawn Times": 0.5,
+     "Solo Mode": false,
+     "Time Limit": 0,
+     "map": "Bridgit"
+    },
+    "type": "bascenev1lib.game.elimination.EliminationGame"
+   },
+   {
+    "settings": {
+     "Balance Total Lives": true,
+     "Epic Mode": true,
+     "Lives Per Player": 3,
+     "Respawn Times": 0.5,
+     "Solo Mode": false,
+     "Time Limit": 0,
+     "map": "Rampage"
+    },
+    "type": "bascenev1lib.game.elimination.EliminationGame"
+   },
+   {
+    "settings": {
+     "Balance Total Lives": true,
+     "Epic Mode": true,
+     "Lives Per Player": 5,
+     "Respawn Times": 0.25,
+     "Solo Mode": false,
+     "Time Limit": 0,
+     "map": "Football Stadium"
+    },
+    "type": "bascenev1lib.game.elimination.EliminationGame"
+   },
+   {
+    "settings": {
+     "Balance Total Lives": true,
+     "Epic Mode": true,
+     "Lives Per Player": 5,
+     "Respawn Times": 0.25,
+     "Solo Mode": false,
+     "Time Limit": 0,
+     "map": "The Pad"
+    },
+    "type": "bascenev1lib.game.elimination.EliminationGame"
+   },
+   {
+    "settings": {
+     "Balance Total Lives": true,
+     "Epic Mode": true,
+     "Lives Per Player": 4,
+     "Respawn Times": 0.25,
+     "Solo Mode": false,
+     "Time Limit": 0,
+     "map": "Roundabout"
+    },
+    "type": "bascenev1lib.game.elimination.EliminationGame"
+   },
+   {
+    "settings": {
+     "Balance Total Lives": true,
+     "Epic Mode": true,
+     "Lives Per Player": 5,
+     "Respawn Times": 0.25,
+     "Solo Mode": false,
+     "Time Limit": 0,
+     "map": "Monkey Face"
+    },
+    "type": "bascenev1lib.game.elimination.EliminationGame"
+   },
+   {
+    "settings": {
+     "Balance Total Lives": true,
+     "Epic Mode": true,
+     "Lives Per Player": 5,
+     "Respawn Times": 0.25,
+     "Solo Mode": false,
+     "Time Limit": 0,
+     "map": "Rampage"
+    },
+    "type": "bascenev1lib.game.elimination.EliminationGame"
+   }
+  ]
+ },
+ "Teams Series Length": 7,
+ "launchCount": 83,
+ "lc14173": 1,
+ "lc14292": 1
+}
