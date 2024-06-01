@@ -20,7 +20,7 @@ def new_begin(self):
     orginial_begin(self)
     vm.reset_votes()
     vm.game_started_on = time.time()
-    bs.cameraflash(duration=999)
+   # bs.cameraflash(duration=999) #Disco
 
 
  
