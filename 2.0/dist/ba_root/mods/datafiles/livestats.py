@@ -14,7 +14,7 @@ class ChatSaver(object):
 
     def save_chat(self):
         try:
-            file_path = "/home/ubuntu/gs/dist/ba_root/mods/logs/chat.log"
+            file_path = ba.env()["python_directory_user"] + "/logs/chat.log"
             msgs = bs.get_chat_messages()
             with open(file_path, "r+") as f:
                 data = f.readlines()
@@ -25,7 +25,7 @@ class ChatSaver(object):
             print(e)
 
     def player_save(self):
-        player_file = "/home/ubuntu/gs/dist/ba_root/mods/logs/players.log"
+        player_file = ba.env()["python_directory_user"] + "/logs/players.log"
         current_roster = bs.get_game_roster()
         
         with open(player_file, "r+") as f:
@@ -47,7 +47,7 @@ class ChatSaver(object):
                         f.write(player_info)
 
     def check_ban(self):
-        ban_path = "/home/ubuntu/gs/dist/ba_root/mods/datafiles/staff.json"
+        ban_path = ba.env()["python_directory_user"] + "/datafiles/staff.json"
         with open(ban_path, "r") as f:
             data = json.load(f)
 

@@ -20,7 +20,7 @@ def new_begin(self):
     orginial_begin(self)
     vm.reset_votes()
     vm.game_started_on = time.time()
-    bs.cameraflash(duration=999)
+   # bs.cameraflash(duration=999) #Disco
 
 
  
@@ -37,7 +37,7 @@ def run():
      from datafiles import discordbot as db
      db.run()
      from datafiles import ModifiedElimination as nel
-     nel.enable()
+     # nel.enable() #Some Issue Happening Will Solve It
         
      print("Imported Custom Files")
    # except Exception as e:
