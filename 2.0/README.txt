@@ -1,4 +1,4 @@
-To run this, simply cd into this directory and run ./bombsquad_server
+o run this, simply cd into this directory and run ./bombsquad_server
 (on mac or linux) or launch_bombsquad_server.bat (on windows).
 You'll need to open a UDP port (43210 by default) so that the world can
 communicate with your server.
