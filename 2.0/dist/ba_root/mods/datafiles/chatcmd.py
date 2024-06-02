@@ -14,7 +14,7 @@ def accept_msg(msg, clientID):
     bmsg(msg, clients=[clientID], transient=True, color = (0,1,1))
     
 
-filepath = "/home/ubuntu/gs/dist/ba_root/mods/datafiles/staff.json"
+filepath = ba.env()["python_directory_user"] + "/datafiles/staff.json"
 f = open(filepath, "r")
 data = json.load(f)
 f.close()
