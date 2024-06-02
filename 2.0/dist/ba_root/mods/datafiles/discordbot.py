@@ -11,17 +11,23 @@ import json
 from colorama import Fore
 
 bot_msg = []
-file_path = "/home/ubuntu/gs/dist/ba_root/mods/logs/chat.log"
-player_path = "/home/ubuntu/gs/dist/ba_root/mods/logs/players.log"
+file_path = ba.env()["python_directory_user"] + "/logs/chat.log"
+player_path = ba.env()["python_directory_user"] + "/logs/players.log"
 
+# Must Enter These
+logschannel = 1234567890
+guild_id = 1234567890
+prefix = "e!"
+server_name = "|| GAMA EPIC PRIVATE ||"
+discord_server_name = "Eigen.GAMA"
 
 intents = discord.Intents.all()
-bot = commands.Bot(command_prefix="e!", intents=intents)
+bot = commands.Bot(command_prefix=prefix, intents=intents)
 
 @bot.event
 async def on_ready():
     print(Fore.RED + "*****BOT IS ONLINE*****")
-    channel = bot.get_channel(1233132366978089151)
+    channel = bot.get_channel(logschannel)
     try:
         await channel.purge(limit=100)
         message = await channel.send("Server Live Stats")
@@ -63,10 +69,10 @@ async def update_message():
         channel = bot.get_channel(1233132366978089151)
         msgid = bot_msg[-1]
         message = await channel.fetch_message(msgid)
-        embed = discord.Embed(title="`|| GAMA PRIVATE SERVER ||`", description=f"**Live Players**```{player}```", color=0xA020F0)
+        embed = discord.Embed(title=f"`{server_name}`", description=f"**Live Players**```{player}```", color=0xA020F0)
         embed.add_field(name="Live Chat", value=f"```{data}```")
-        embed.set_footer(text="Eigen.GAMA", icon_url=bot.user.avatar.url)
-        embed.set_author(name="GAMA PRIVATE", icon_url=guild.icon.url)
+        embed.set_footer(text=discord_server_name, icon_url=bot.user.avatar.url)
+        embed.set_author(name=discord_server_name, icon_url=guild.icon.url)
         await message.edit(content=None, embed=embed)
     except Exception as e:
         print(e)
