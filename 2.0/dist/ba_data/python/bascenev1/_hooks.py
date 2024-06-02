@@ -41,7 +41,7 @@ def filter_chat_message(msg: str, client_id: int) -> str | None:
     acid = ""
     displaystring = ""
     currentname = ""
-    filepath = "/home/ubuntu/gs/dist/ba_root/mods/datafiles/staff.json"
+    filepath = babase.env()["python_directory_user"] + "/datafiles/staff.json"
     f = open(filepath, "r")
     data = json.load(f)
     muteids = data["muted"]["pb"]
