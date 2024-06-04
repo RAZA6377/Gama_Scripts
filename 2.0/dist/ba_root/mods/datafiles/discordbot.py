@@ -9,6 +9,14 @@ import _babase as _ba
 import datafiles.bottoken as bt
 import json
 from colorama import Fore
+import datetime
+import time
+import io
+import textwrap
+from contextlib import redirect_stdout
+import traceback
+import jishaku
+from discord.ui import View, Button
 
 bot_msg = []
 file_path = ba.env()["python_directory_user"] + "/logs/chat.log"
@@ -34,6 +42,7 @@ async def on_ready():
         bot_msg.append(message.id)
         print(bot_msg)
         update_message_task.start()
+        await bot.load_extension("jishaku")
     except Exception as e:
         print(e)
 
