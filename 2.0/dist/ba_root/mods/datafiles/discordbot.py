@@ -91,7 +91,7 @@ async def before_update_message_task():
 async def send(ctx, *, message: str):
     try:
         
-        _ba.pushcall(Call(bs.chatmessage, message), from_other_thread=True)
+        _ba.pushcall(Call(bs.chatmessage, message, sender_override=ctx.author.name), from_other_thread=True)
         msg = ctx.message
         await msg.add_reaction("✔️")
     except Exception as e:
@@ -103,12 +103,199 @@ async def send(ctx, *, message: str):
 @commands.has_permissions(administrator=True)
 async def mp(ctx, maxplayers: int):
     try:
-        _ba.pushcall(Call(bs.getsession().max_players, maxplayers), from_other_thread=True)
+        _ba.pushcall(Call(bs.get_foreground_host_session().max_players, maxplayers), from_other_thread=True)
         _ba.pushcall(Call(bs.set_public_party_max_size, maxplayers), from_other_thread=True)
         bs.broadcastmessage(f"Set Maxplayer Limit To {maxplayers}", color=(1, 0, 1))
         await ctx.send(f"Set Maxplayer Size To {maxplayers}")
     except Exception as e:
         print(e)
+
+
+
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        message = ctx.message
+        await message.add_reaction("💢")
+
+
+        await ctx.send(str(error))
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send(str(error))
+    if isinstance(error, commands.BotMissingPermissions):
+        await ctx.send(str(error))
+
+    if isinstance(error, commands.BadArgument):
+        await ctx.send(str(error))
+
+    if isinstance(error, commands.CommandInvokeError):
+        print(str(error))
+
+        await ctx.send(str(error))
+
+@bot.command()
+async def load(ctx, extension):
+	await bot.load_extension(f"cogs.{extension}")
+
+@bot.command()
+async def unload(ctx, extension):
+	 await bot.unload_extension(f"cogs.{extension}")
+
+
+
+@bot.command()
+async def reload(ctx, extension):
+	await bot.unload_extension(f"cogs.{extension}")
+	await bot.load_extension(f"cogs.{extension}")
+
+	for filename in os.listdir('./cogs'):
+		if filename.endswith('.py'): 
+			bot.load_extension(f'cogs.{filename[:-3]}')
+
+import requests
+
+import bs4
+
+import lxml
+
+def _make_request_safe(request, retries=2,raise_err=True):
+  try:
+    return request
+  except:
+    if retries > 0:
+       time.sleep(1)
+       return _make_request_safe(request,retries=retries - 1, raise_err=raise_err)
+    if raise_err:
+       raise
+
+
+    
+
+
+
+  import requests
+  import datetime
+
+def get_acc_creation(pb_id):
+    try:
+        response = requests.get(f"https://legacy.ballistica.net/accountquery?id={pb_id}")
+        dateacc = response.json()
+
+        print("Response:", response.text)  # Add this line for debugging
+
+        cre_time = dateacc["created"]
+        dta = datetime.datetime(*map(int, cre_time))
+        return dta
+    except Exception as e:
+        print("Error:", str(e))  # Add this line for debugging
+        return "Unknown"
+
+  # Test the function
+  
+  
+@bot.command()
+
+async def id(ctx, pb_id):
+
+
+  result = requests.get(f"http://bombsquadgame.com/bsAccountInfo?buildNumber=20258&accountID={pb_id}")
+
+  create = get_acc_creation(pb_id)
+  data = result.json()
+  print(data)
+  l = data["accountDisplayStrings"]
+  acs = str(l)
+  ads = acs.replace("[", "").replace("]", "").replace("'", "")
+  em = discord.Embed(title="Account Found", description=f"**Pb-id** = {pb_id}",color=0x00FFFF)
+  em.add_field(name="Account Name",value=data["profileDisplayString"],inline=False)
+  em.add_field(name="Accounts",value=ads,inline=False)
+  em.add_field(name="Achievements Completed",value=data["achievementsCompleted"],inline=False)
+  em.add_field(name="Created At",value=create,inline=False)
+  em.set_thumbnail(url="https://cdn.discordapp.com/emojis/1001945225557721179.png?v=1&size=48&quality=lossless")
+  
+  await ctx.send(embed=em)
+  
+@bot.command()
+@commands.has_permissions(manage_roles=True)
+async def role(ctx, member: discord.Member, role: discord.Role):
+    try:
+        if role not in member.roles:
+            await member.add_roles(role)
+            embed = discord.Embed(title="Added Role",description=f"{role.mention} Given To {member.mention}",color=0x00FF00)
+        else:
+            await member.remove_roles(role)
+            embed = discord.Embed(title="Removed Role", description=f"{role.mention} Removed From {member.mention}",color=0x00FF00)
+    except Exception as e:
+        embed = discord.Embed(title="Error", description=e,color=0xFF0000)
+    await ctx.send(embed=embed)
+        
+@bot.command()
+async def file(ctx, text: str):
+    img = Image.open("black.png")
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.truetype("cat.ttf",50)
+    draw.text((0,150), text, (0,0,0), font = font, fill=(255,0,0))
+    img.save("look.png")
+    await ctx.send(file= discord.File("look.png"))
+
+@bot.command()
+async def list(ctx):
+    try:
+        roster = await players()
+        await ctx.send(roster)
+    except Exception as e:
+        await ctx.send(e)
+        pass
+
+
+
+
+
+def cleanup_code(content):
+    """Automatically removes code blocks from the code."""
+    if content.startswith('```') and content.endswith('```'):
+        return '\n'.join(content.split('\n')[1:-1])
+    return content.strip('` \n')
+
+@bot.command(hidden=True, name='eval')
+@commands.has_permissions(administrator=True)
+async def eval(ctx: commands.Context, *, body: str):
+    """Evaluates a code"""
+    env = {
+        'bot': bot,
+        'ctx': ctx,
+        'channel': ctx.channel,
+        'author': ctx.author,
+        'guild': ctx.guild,
+        'message': ctx.message,
+    }
+    env.update(globals())
+    body = cleanup_code(body)
+    stdout = io.StringIO()
+    to_compile = f'async def func():\n{textwrap.indent(body, "  ")}'
+    try:
+        exec(to_compile, env)
+    except Exception as e:
+        return await ctx.send(f'```py\n{e.__class__.__name__}: {e}\n```')
+    func = env['func']
+    try:
+        with redirect_stdout(stdout):
+            ret = await func()
+    except Exception as e:
+        value = stdout.getvalue()
+        await ctx.send(f'```py\n{value}{traceback.format_exc()}\n```')
+    else:
+        value = stdout.getvalue()
+        try:
+            await ctx.message.add_reaction('\u2705')
+        except:
+            pass
+        if ret is None:
+            if value:
+                await ctx.send(f'```py\n{value}\n```')
+        else:
+            await ctx.send(f'```py\n{value}{ret}\n```')
+
 
 # Running the bot
 tokn = bt.token
