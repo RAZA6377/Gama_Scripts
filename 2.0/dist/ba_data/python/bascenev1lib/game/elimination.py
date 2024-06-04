@@ -517,7 +517,26 @@ class EliminationGame(bs.TeamGameActivity[Player, Team]):
 
         # Update icons in a moment since our team will be gone from the
         # list then.
-        bs.timer(0, self._update_icons)
+        bs.timer(0, self._update_icon
+        ########################################################Nippy#2677
+        team_count=0  #Just initiating
+        if player.lives>0 and Extreme_Balance:
+            team_mem=[]
+            for teamer in player.team.players:
+                if player!=teamer:
+                    team_mem.append(teamer)  #Got Dead players Team members
+            live=player.lives
+            team_count=len(team_mem)
+            for i in range(int((live if live%2==0 else live+1)/2)):  #Extending Player List for Sorted Players
+                team_mem.extend(team_mem)
+            if team_count>0:
+                for i in range(live):
+                    if team_mem[i].is_alive():
+                        team_mem[i].lives+=1
+
+        if len(self._get_living_teams()) < 2:
+            self.end_game()
+        ########################################################Nippy#2677
 
         # If the player to leave was the last in spawn order and had
         # their final turn currently in-progress, mark the survival time
