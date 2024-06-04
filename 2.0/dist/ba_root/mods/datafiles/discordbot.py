@@ -142,24 +142,7 @@ async def on_command_error(ctx, error):
 
         await ctx.send(str(error))
 
-@bot.command()
-async def load(ctx, extension):
-	await bot.load_extension(f"cogs.{extension}")
 
-@bot.command()
-async def unload(ctx, extension):
-	 await bot.unload_extension(f"cogs.{extension}")
-
-
-
-@bot.command()
-async def reload(ctx, extension):
-	await bot.unload_extension(f"cogs.{extension}")
-	await bot.load_extension(f"cogs.{extension}")
-
-	for filename in os.listdir('./cogs'):
-		if filename.endswith('.py'): 
-			bot.load_extension(f'cogs.{filename[:-3]}')
 
 import requests
 
