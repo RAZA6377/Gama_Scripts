@@ -70,7 +70,7 @@ def filter_chat_message(msg: str, client_id: int) -> str | None:
         _bascenev1.broadcastmessage("Sorry! You Are Muted", transient=True, color=(1,0,0), clients=client_id)
         return None
 
-    elif data["serverdata"]["muted"]:
+    elif data["serverdata"]["chatmuted"]:
         _bascenev1.broadcastmessage("ServerChat Is Muted", transient=True, color=(1,0,0), clients=[client_id])
         return None
 
