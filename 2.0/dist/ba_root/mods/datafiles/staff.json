@@ -10,5 +10,8 @@
     },
     "muted": {
         "pb": []
+    },
+    "serverdata": {
+        "muted": false
     }
 }
