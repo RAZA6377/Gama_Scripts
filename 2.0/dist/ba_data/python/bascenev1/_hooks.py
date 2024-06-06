@@ -37,7 +37,7 @@ def get_player_icon(sessionplayer: bascenev1.SessionPlayer) -> dict[str, Any]:
 
 def filter_chat_message(msg: str, client_id: int) -> str | None:
     import datafiles.chatcmd as cmd
-    import datafiles.votingmachine as vh
+    import datafiles.votinghandler as vh
     acid = ""
     displaystring = ""
     currentname = ""
