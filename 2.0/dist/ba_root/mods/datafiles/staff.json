@@ -12,6 +12,6 @@
         "pb": []
     },
     "serverdata": {
-        "muted": false
+        "chatmuted": false
     }
 }
