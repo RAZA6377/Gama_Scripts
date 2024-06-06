@@ -419,4 +419,36 @@ class Cmd(object):
         else:
             error(no_perms, self.clientID)
 
+    def mutechat(self):
+        global data
+        pbid = self.get_player_info(self.clientID)["aid"]
+        if pbid in data["owner"]["pb"] or pbid in data["admin"]["pb"] or self.clientID == -1:
+            if data["serverdata"]["chatmuted"] == True:
+                error("ServerChat Is Already Muted", self.clientID)
+            else:
+                data["serverdata"]["chatmuted"] = True
+                accept_msg("Command Accepted", self.clientID)
+                bmsg("ServerChat Is Now Muted", color=(0,1,0))
+            with open(filepath, "w") as f:
+                json.dump(data, f, indent=4)
+            
+        else:
+            error(no_perms, self.clientID)
+
+    def unmutechat(self):
+        global data
+        pbid = self.get_player_info(self.clientID)["aid"]
+        if pbid in data["owner"]["pb"] or pbid in data["admin"]["pb"] or self.clientID == -1:
+            if data["serverdata"]["chatmuted"] == False:
+                error("ServerChat Is Already Unmuted", self.clientID)
+            else:
+                data["serverdata"]["chatmuted"] = False
+                accept_msg("Command Accepted", self.clientID)
+                bmsg("ServerChat Is Now Unmuted", color=(0,1,0))
+            with open(filepath, "w") as f:
+                json.dump(data, f, indent=4)
+            
+        else:
+            error(no_perms, self.clientID)
+
     
