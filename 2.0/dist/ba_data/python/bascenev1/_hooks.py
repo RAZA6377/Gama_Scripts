@@ -57,15 +57,19 @@ def filter_chat_message(msg: str, client_id: int) -> str | None:
                 currentname = "<in-lobby>"
             displaystring = i['display_string']
     
-    if msg in ["end", "maxplayer", "quit"]:
-        print("Vote Started")
-        vh.vote(acid, client_id, msg)
+    if msg in ["!end", "Y", "N"]:
+        if msg == "!end"
+            print("Vote Started")
+            vh.start_vote(client_id)
+        else:
+            vh.handle_votes(client_id, msg)
     elif (str(command[0])).startswith('/') :
         cmd.Cmd(msg, client_id)
 
     elif acid in muteids:
         _bascenev1.broadcastmessage("Sorry! You Are Muted", transient=True, color=(1,0,0), clients=client_id)
         return None
+
     return msg
 
 def local_chat_message(msg: str) -> None:
