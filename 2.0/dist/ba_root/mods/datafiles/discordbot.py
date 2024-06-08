@@ -18,11 +18,13 @@ import traceback
 import jishaku
 from discord.ui import View, Button
 
+log_msg = []
 bot_msg = []
 file_path = ba.env()["python_directory_user"] + "/logs/chat.log"
 player_path = ba.env()["python_directory_user"] + "/logs/players.log"
 
 # Must Enter These
+msgchannel = 1234567890
 logschannel = 1234567890
 guild_id = 1234567890
 prefix = "e!"
@@ -35,13 +37,21 @@ bot = commands.Bot(command_prefix=prefix, intents=intents)
 @bot.event
 async def on_ready():
     print(Fore.RED + "*****BOT IS ONLINE*****")
-    channel = bot.get_channel(logschannel)
+    global msgchannel
+    global logschannel
+    global guild_id
+    channel = bot.get_channel(msgchannel)
+   logchannel = bot.get_channel(logschannel)
     try:
         await channel.purge(limit=100)
+        await logchannel.purge(limit=100)
         message = await channel.send("Server Live Stats")
+        logmsg = logchannel.send("Server Logs")
+        log_msg.append(logmsg.id)
         bot_msg.append(message.id)
         print(bot_msg)
         update_message_task.start()
+        serverlog.start()
         await bot.load_extension("jishaku")
     except Exception as e:
         print(e)
@@ -53,6 +63,19 @@ async def read_data_from_file():
         if not lines:
             return "Empty"
         if len(lines) > 40:
+            return "".join(lines[-10:])
+        else:
+            return "".join(lines)
+    except FileNotFoundError:
+        return "File not found"
+
+async def server_logs():
+    try:
+        with open(logs_path, "r") as file:
+            lines = file.readlines()
+        if not lines:
+            return "Empty"
+        if len(lines) > 20:
             return "".join(lines[-10:])
         else:
             return "".join(lines)
@@ -86,11 +109,33 @@ async def update_message():
     except Exception as e:
         print(e)
 
+async def serverlog():
+    try:
+        data = await server_logs()
+        guild = bot.get_guild(guild_id)
+        channel = bot.get_channel(logschannel)
+        msgid = log_msg[-1]
+        message = await channel.fetch_message(msgid)
+        embed = discord.Embed(title=f"Server Logs", description=data, color=0xA020F0)
+        embed.set_footer(text=discord_server_name, icon_url=bot.user.avatar.url)
+        embed.set_author(name=discord_server_name, icon_url=guild.icon.url)
+        await message.edit(content=None, embed=embed)
+    except Exception as e:
+        print(e)
+
 @tasks.loop(seconds=5)
 async def update_message_task():
     await update_message()
 
 @update_message_task.before_loop
+async def before_update_message_task():
+    await bot.wait_until_ready()
+
+@tasks.loop(seconds=5)
+async def serverlog():
+    await server_logs()
+
+@serverlog.before_loop
 async def before_update_message_task():
     await bot.wait_until_ready()
 
@@ -221,23 +266,7 @@ async def role(ctx, member: discord.Member, role: discord.Role):
         embed = discord.Embed(title="Error", description=e,color=0xFF0000)
     await ctx.send(embed=embed)
         
-@bot.command()
-async def file(ctx, text: str):
-    img = Image.open("black.png")
-    draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("cat.ttf",50)
-    draw.text((0,150), text, (0,0,0), font = font, fill=(255,0,0))
-    img.save("look.png")
-    await ctx.send(file= discord.File("look.png"))
 
-@bot.command()
-async def list(ctx):
-    try:
-        roster = await players()
-        await ctx.send(roster)
-    except Exception as e:
-        await ctx.send(e)
-        pass
 
 
 
