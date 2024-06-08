@@ -155,9 +155,9 @@
  "Fleet Zone Ping Last Flush Time": 1717586405,
  "Fleet Zone Pings": {
   "prod": {
-   "delhi.v4": 26.394086765500525,
-   "hyderabad.v4": 18.04390864077858,
-   "mumbai.v4": 1.8670960271920023
+   "delhi.v4": 23.681182352808136,
+   "hyderabad.v4": 17.500924225305898,
+   "mumbai.v4": 1.3425011070386097
   }
  },
  "Free-for-All Playlist Randomize": true,
