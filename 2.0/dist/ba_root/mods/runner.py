@@ -15,12 +15,11 @@ class FileRunner(babase.Plugin):
 orginial_begin = bs._activity.Activity.on_begin
 
 def new_begin(self):
-    from datafiles import votingmachine as vm
+    from datafiles import newvotehandler as vm
     now = datetime.now()
     orginial_begin(self)
-    vm.reset_votes()
-    vm.game_started_on = time.time()
-   # bs.cameraflash(duration=999) #Disco
+#    vm.reset()
+   # bs.cameraflash(duration=999)
 
 
  
@@ -36,9 +35,14 @@ def run():
      livestats.ChatSaver().start()
      from datafiles import discordbot as db
      db.run()
+     from datafiles import ModifiedSpaz as ms
+     ms.enable()
      from datafiles import ModifiedElimination as nel
-     # nel.enable() #Some Issue Happening Will Solve It
-        
+   #  nel.enable()
+     from datafiles import afkremover as ar
+     ar.start()
+     from datafiles import playerhandler as ph
+     ph.apply()
      print("Imported Custom Files")
    # except Exception as e:
      #   print(f"Error While Importing Custom Files: {e}")
