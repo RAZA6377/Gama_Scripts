@@ -41,7 +41,7 @@ def run():
    #  nel.enable()
      from datafiles import afkremover as ar
      ar.start()
-     from datafiles import playerhandler as ph
+     from datafiles import playerlogger as ph
      ph.apply()
      print("Imported Custom Files")
    # except Exception as e:
