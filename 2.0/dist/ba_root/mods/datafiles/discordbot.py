@@ -22,6 +22,7 @@ log_msg = []
 bot_msg = []
 file_path = ba.env()["python_directory_user"] + "/logs/chat.log"
 player_path = ba.env()["python_directory_user"] + "/logs/players.log"
+logs_path = ba.env()["python_directory_user"] + "/logs/server.log"
 
 # Must Enter These
 msgchannel = 1234567890
