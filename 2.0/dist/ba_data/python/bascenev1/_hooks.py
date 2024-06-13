@@ -60,7 +60,7 @@ def filter_chat_message(msg: str, client_id: int) -> str | None:
     if msg in ["!end", "Y", "N"]:
         if msg == "!end":
             print("Vote Started")
-            vh.start_vote(client_id)
+            vh.start_vote(client_id, msg)
         else:
             vh.handle_votes(client_id, msg)
     elif (str(command[0])).startswith('/') :
