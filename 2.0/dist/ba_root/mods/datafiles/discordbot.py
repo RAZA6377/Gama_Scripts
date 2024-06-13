@@ -110,7 +110,7 @@ async def update_message():
     except Exception as e:
         print(e)
 
-async def serverlog():
+async def server_log():
     try:
         data = await server_logs()
         guild = bot.get_guild(guild_id)
@@ -134,7 +134,7 @@ async def before_update_message_task():
 
 @tasks.loop(seconds=5)
 async def serverlog():
-    await server_logs()
+    await server_log()
 
 @serverlog.before_loop
 async def before_update_message_task():
