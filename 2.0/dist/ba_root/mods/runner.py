@@ -18,33 +18,28 @@ def new_begin(self):
     from datafiles import newvotehandler as vm
     now = datetime.now()
     orginial_begin(self)
-#    vm.reset()
-   # bs.cameraflash(duration=999)
+    vm.reset()
 
 
  
 def run():
- #   try:
-     print("Importing Custom Files")
-     from datafiles import characterchooser
-     characterchooser.enable()
-     bs._activity.Activity.on_begin = new_begin
-     from bascenev1 import _hooks
-
-     from datafiles import livestats
-     livestats.ChatSaver().start()
-     from datafiles import discordbot as db
-     db.run()
-     from datafiles import ModifiedSpaz as ms
-     ms.enable()
-     from datafiles import ModifiedElimination as nel
-   #  nel.enable()
-     from datafiles import afkremover as ar
-     ar.start()
-     from datafiles import playerlogger as ph
-     ph.apply()
-     print("Imported Custom Files")
-   # except Exception as e:
-     #   print(f"Error While Importing Custom Files: {e}")
-      #  pass
+    try:
+        print("Importing Custom Files")
+        from datafiles import characterchooser
+        characterchooser.enable()
+        bs._activity.Activity.on_begin = new_begin
+        from datafiles import livestats
+        livestats.ChatSaver().start()
+        from datafiles import discordbot as db
+        db.run()
+        from datafiles import ModifiedSpaz as ms
+        ms.enable()
+        from datafiles import afkremover as ar
+        ar.start()
+        from datafiles import playerlogger as ph
+        ph.apply()
+        print("Imported Custom Files")
+    except Exception as e:
+        print(f"Error While Importing Custom Files: {e}")
+        pass
 
