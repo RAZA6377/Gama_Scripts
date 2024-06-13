@@ -58,7 +58,7 @@ def filter_chat_message(msg: str, client_id: int) -> str | None:
             displaystring = i['display_string']
     
     if msg in ["!end", "Y", "N"]:
-        if msg == "!end"
+        if msg == "!end":
             print("Vote Started")
             vh.start_vote(client_id)
         else:
@@ -68,7 +68,7 @@ def filter_chat_message(msg: str, client_id: int) -> str | None:
 
     elif acid in muteids:
         _bascenev1.broadcastmessage("Sorry! You Are Muted", transient=True, color=(1,0,0), clients=client_id)
-        return None
+        return 
 
     elif data["serverdata"]["chatmuted"]:
         _bascenev1.broadcastmessage("ServerChat Is Muted", transient=True, color=(1,0,0), clients=[client_id])
