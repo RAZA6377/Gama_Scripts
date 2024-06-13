@@ -1,11 +1,11 @@
 import bascenev1 as bs
 
-from bascenev1lib.actor.playerspaz import PlayerSpaz
+from bascenev1lib.actor import playerspaz
 
 import time
 
 
-class NewPlayerSpaz(PlayerSpaz):
+class NewPlayerSpaz(playerspaz.PlayerSpaz):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._last_input_time = time.time()
@@ -72,4 +72,4 @@ class NewPlayerSpaz(PlayerSpaz):
 
 
 def enable():
-    PlayerSpaz = NewPlayerSpaz
+    playerspaz.PlayerSpaz = NewPlayerSpaz
