@@ -5,6 +5,7 @@ import _bascenev1 as _bs
 import os , json
 from bascenev1 import broadcastmessage as bmsg
 from bascenev1 import chatmessage as cmsg
+import time
 
 
 def error(msg, clientID):
@@ -13,7 +14,16 @@ def error(msg, clientID):
 def accept_msg(msg, clientID):
     bmsg(msg, clients=[clientID], transient=True, color = (0,1,1))
     
+def read_file(path):
+    with open(path, "r") as f:
+        data = f.readlines()
+    return data
 
+def write_file(path, data):
+    with open(path, "r+") as f:
+        f.write(data)
+    
+logspath = ba.env()["python_directory_user"] + "/logs/server.log"
 filepath = ba.env()["python_directory_user"] + "/datafiles/staff.json"
 f = open(filepath, "r")
 data = json.load(f)
@@ -88,7 +98,9 @@ class Cmd(object):
 
     def mp(self):
         global data
-        pbid = self.get_player_info(self.clientID)["aid"]
+        
+        execinfo = self.get_player_info(self.clientID)
+        pbid = execinfo['aid']
         if pbid in data["owner"]["pb"] or pbid in data["admin"]["pb"] or self.clientID == -1:
             if self.arg == []:
                 error("Please Provide A Number", self.clientID)
@@ -98,6 +110,8 @@ class Cmd(object):
                 bs.get_foreground_host_session().max_players = size
                 accept_msg("Command Accepted", self.clientID)
                 bmsg(f"Maxplayers Set To {size}",color = (1,0,1))
+                save_log = f"<t:{int(time.time())}:R> | {execinfo['ds']} Set Maxplayers Size To {size}"
+                write_file(logspath, save_log + "\n")
             
         else:
             error(no_perms, self.clientID)
@@ -119,7 +133,7 @@ class Cmd(object):
 
     def kick(self):
         execinfo = self.get_player_info(self.clientID)
-        pbid = execinfo["aid"]
+        pbid = execinfo['aid']
         if pbid in data["owner"]["pb"] or pbid in data["admin"]["pb"] or self.clientID == -1:
             if self.arg == []:
                 error("Provide Player ClientID Or Name", self.clientID)
@@ -137,6 +151,9 @@ class Cmd(object):
                     _bs.disconnect_client(clientid)
                     accept_msg(f"{playerinfo['ds']} Successfully Kicked", self.clientID)
                     bmsg(f"{playerinfo['ds']} Has Been Kicked By {execinfo['ds']}",color=(1,0,1))
+
+                    save_log = f"<t:{int(time.time())}:R> | {execinfo['ds']} Kicked {playerinfo['ds']}"
+                    write_file(logspath, save_log + "\n")
         else:
             error(no_perms, self.clientID)
 
@@ -164,6 +181,8 @@ class Cmd(object):
                     _bs.disconnect_client(clientid)
                     accept_msg(f"{playerinfo['ds']} Successfully Banned", self.clientID)
                     bmsg(f"{playerinfo['ds']} Has Been Banned By {execinfo['ds']}",color=(1,0,1))
+                    save_log = f"<t:{int(time.time())}:R> | {execinfo['ds']} Banned {playerinfo['ds']}"
+                    write_file(logspath, save_log + "\n")
                     data["banned"]["pb"].append(playerinfo['aid'])
                 with open(filepath, "w") as f:
                     
@@ -184,21 +203,18 @@ class Cmd(object):
             if self.arg == []:
                 error("Provide Player ClientID Or Name", self.clientID)
             else:
-                try:
-                    clientid = int(self.arg[0])
-                except:
-                    name = str(self.arg[0])
-                    clientid = self.clientidfromnick(name)
-                playerinfo = self.get_player_info(clientid)
-                pid = playerinfo["aid"]
+                
+                pid = str(self.arg[0])
                 
                 if pid not in data["banned"]["pb"]:
                     error("User Is Not Banned", self.clientID)
                 else:
-                    cmsg(f"{playerinfo['ds']} Has Been Unbanned By {execinfo['ds']}")
+                    cmsg(f"{pid} Has Been Unbanned By {execinfo['ds']}")
                     
-                    accept_msg(f"{playerinfo['ds']} Successfully Unbanned", self.clientID)
-                    bmsg(f"{playerinfo['ds']} Has Been Unbanned By {execinfo['ds']}",color=(1,0,1))
+                    accept_msg(f"{pid} Successfully Unbanned", self.clientID)
+                    bmsg(f"{pid} Has Been Unbanned By {execinfo['ds']}",color=(1,0,1))
+                    save_log = f"<t:{int(time.time())}:R> | {execinfo['ds']} Unbanned {pid}"
+                    write_file(logspath, save_log + "\n")
                     data["banned"]["pb"].remove(playerinfo['aid'])
                 with open(filepath, "w") as f:
                     
@@ -254,6 +270,8 @@ class Cmd(object):
                 else:
                     accept_msg(f"{playerinfo['ds']} Is Now An Admin", self.clientID)
                     bmsg(f"{playerinfo['ds']} Is Added To Admin List By {execinfo['ds']}",color=(1,0,1))
+                    save_log = f"<t:{int(time.time())}:R> | {execinfo['ds']} Added {playerinfo['ds']} As Admin"
+                    write_file(logspath, save_log + "\n")
                     data["admin"]["pb"].append(playerinfo['aid'])
                 with open(filepath, "w") as f:
                     try:
@@ -284,6 +302,8 @@ class Cmd(object):
                 else:
                     accept_msg(f"{playerinfo['ds']} Removed From Admins", self.clientID)
                     bmsg(f"{playerinfo['ds']} Removed From Admins By {execinfo['ds']}",color=(1,0,1))
+                    save_log = f"<t:{int(time.time())}:R> | {execinfo['ds']} Removed {playerinfo['ds']} From Admin"
+                    write_file(logspath, save_log + "\n")
                     data["admin"]["pb"].remove(playerinfo['aid'])
                 with open(filepath, "w") as f:
                     try:
@@ -411,43 +431,12 @@ class Cmd(object):
 
     def quit(self):
         global data
-        pbid = self.get_player_info(self.clientID)["aid"]
+        execinfo = self.get_player_info(self.clientID)
+        pbid = execinfo["aid"]
         if pbid in data["owner"]["pb"] or pbid in data["admin"]["pb"] or self.clientID == -1:
             accept_msg("Command Accepted", self.clientID)
             cmsg("Restarting Server")
             ba.quit()
-        else:
-            error(no_perms, self.clientID)
-
-    def mutechat(self):
-        global data
-        pbid = self.get_player_info(self.clientID)["aid"]
-        if pbid in data["owner"]["pb"] or pbid in data["admin"]["pb"] or self.clientID == -1:
-            if data["serverdata"]["chatmuted"] == True:
-                error("ServerChat Is Already Muted", self.clientID)
-            else:
-                data["serverdata"]["chatmuted"] = True
-                accept_msg("Command Accepted", self.clientID)
-                bmsg("ServerChat Is Now Muted", color=(0,1,0))
-            with open(filepath, "w") as f:
-                json.dump(data, f, indent=4)
-            
-        else:
-            error(no_perms, self.clientID)
-
-    def unmutechat(self):
-        global data
-        pbid = self.get_player_info(self.clientID)["aid"]
-        if pbid in data["owner"]["pb"] or pbid in data["admin"]["pb"] or self.clientID == -1:
-            if data["serverdata"]["chatmuted"] == False:
-                error("ServerChat Is Already Unmuted", self.clientID)
-            else:
-                data["serverdata"]["chatmuted"] = False
-                accept_msg("Command Accepted", self.clientID)
-                bmsg("ServerChat Is Now Unmuted", color=(0,1,0))
-            with open(filepath, "w") as f:
-                json.dump(data, f, indent=4)
-            
         else:
             error(no_perms, self.clientID)
 
