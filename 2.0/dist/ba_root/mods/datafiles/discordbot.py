@@ -25,6 +25,10 @@ bot_msg = []
 file_path = ba.env()["python_directory_user"] + "/logs/chat.log"
 player_path = ba.env()["python_directory_user"] + "/logs/players.log"
 logs_path = ba.env()["python_directory_user"] + "/logs/server.log"
+staff_file = ba.env()["python_directory_user"] + "/datafiles/staff.json"
+f = open(staff_file, "r")
+data = json.load(f)
+f.close()
 
 # Must Enter These
 msgchannel = 1234567890
@@ -35,7 +39,7 @@ server_name = "|| GAMA EPIC PRIVATE ||"
 discord_server_name = "Eigen.GAMA"
 
 intents = discord.Intents.all()
-bot = commands.Bot(command_prefix=prefix, intents=intents)
+bot = commands.Bot(command_prefix=prefix, intents=intents, owner_id=)
 
 @bot.event
 async def on_ready():
@@ -58,6 +62,52 @@ async def on_ready():
         await bot.load_extension("jishaku")
     except Exception as e:
         print(e)
+
+def check():
+
+    def pred(ctx):
+
+        try:
+            global data
+
+            if int(ctx.author.id) in data["discordstaff"]["userids"]:
+
+                return True
+
+            return False
+
+        except Exception as e:
+            print(e)
+            pass
+    return commands.check(pred)
+    
+
+@bot.command()
+@commands.is_owner()
+async def owner(ctx, member: discord.Member, action: str):
+    try:
+        if action == "add":
+            if int(member.id) in data["discordstaff"]["userids"]:
+                await ctx.send("User Is Already An Admin")
+            else:
+                data["discordstaff"]["userids"].append(int(member.id))
+                with open(staff_file, "w") as file:
+                    json.dump(data, file, indent=4)
+                await ctx.send(f"User {member.mention} Id: {member.id} Added To Owner")
+        elif action == "remove":
+            if int(member.id) not in data["discordstaff"]["userids"]:
+                await ctx.send("User Is Not An Admin")
+            else:
+                data["discordstaff"]["userids"].pop(int(member.id))
+                with open(staff_file, "w") as file:
+                    json.dump(data, file, indent=4)
+                await ctx.send(f"<@{member.id}> Has Been Removed From Admin List")
+        else:
+            await ctx.send("Use Action As add/remove")
+    except Exception as e:
+        await ctx.send(e)
+        print(e)
+        pass
 
 async def read_data_from_file():
     try:
@@ -143,8 +193,8 @@ async def before_update_message_task():
     await bot.wait_until_ready()
 
 # Commands
+@check()
 @bot.command()
-@commands.has_permissions(administrator=True)
 async def send(ctx, *, message: str):
     try:
         
@@ -156,16 +206,17 @@ async def send(ctx, *, message: str):
         await msg.add_reaction("❌")
         print(e)
 
+@check()
 @bot.command()
-@commands.has_permissions(administrator=True)
-async def mp(ctx, maxplayers):
+async def mp(ctx, maxplayers: int):
     try:
-        _ba.pushcall(Call(bs.get_foreground_host_session().max_players, maxplayers), from_other_thread=True)
-        _ba.pushcall(Call(bs.set_public_party_max_size, maxplayers), from_other_thread=True)
-        bs.broadcastmessage(f"Set Maxplayer Limit To {maxplayers}", color=(1, 0, 1))
-        await ctx.send(f"Set Maxplayer Size To {maxplayers}")
+        cmd = "/mp " + maxplayers
+        _ba.pushcall(Call(bs.chatmessage, cmd), from_other_thread=True)
+        await ctx.send(f"Set Maxplayers Limit To {maxplayers}")
     except Exception as e:
+        await ctx.send(str(e))
         print(e)
+        pass
 
 
 
@@ -255,6 +306,7 @@ async def id(ctx, pb_id):
   
   await ctx.send(embed=em)
   
+@check()
 @bot.command()
 @commands.has_permissions(manage_roles=True)
 async def role(ctx, member: discord.Member, role: discord.Role):
@@ -281,8 +333,8 @@ def cleanup_code(content):
         return '\n'.join(content.split('\n')[1:-1])
     return content.strip('` \n')
 
+@check()
 @bot.command(hidden=True, name='eval')
-@commands.has_permissions(administrator=True)
 async def eval(ctx: commands.Context, *, body: str):
     """Evaluates a code"""
     env = {
@@ -319,7 +371,6 @@ async def eval(ctx: commands.Context, *, body: str):
                 await ctx.send(f'```py\n{value}\n```')
         else:
             await ctx.send(f'```py\n{value}{ret}\n```')
-
 
 # Running the bot
 tokn = bt.token
