@@ -39,7 +39,7 @@ server_name = "|| GAMA EPIC PRIVATE ||"
 discord_server_name = "Eigen.GAMA"
 
 intents = discord.Intents.all()
-bot = commands.Bot(command_prefix=prefix, intents=intents, owner_id=)
+bot = commands.Bot(command_prefix=prefix, intents=intents, owner_id=924617239301324856)
 
 @bot.event
 async def on_ready():
