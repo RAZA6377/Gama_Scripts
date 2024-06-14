@@ -11,6 +11,9 @@
     "muted": {
         "pb": []
     },
+    "discordstaff": {
+        "userids": []
+    },
     "serverdata": {
         "chatmuted": false
     }
