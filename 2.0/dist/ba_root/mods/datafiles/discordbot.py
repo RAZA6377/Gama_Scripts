@@ -156,7 +156,7 @@ async def send(ctx, *, message: str):
 
 @bot.command()
 @commands.has_permissions(administrator=True)
-async def mp(ctx, maxplayers: int):
+async def mp(ctx, maxplayers):
     try:
         _ba.pushcall(Call(bs.get_foreground_host_session().max_players, maxplayers), from_other_thread=True)
         _ba.pushcall(Call(bs.set_public_party_max_size, maxplayers), from_other_thread=True)
