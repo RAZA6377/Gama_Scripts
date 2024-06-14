@@ -61,13 +61,3 @@ class ChatSaver(object):
                 bs.disconnect_client(cid)
             else:
                 pass
-                
- 
-
-
-
-     
-   
-
-
-   
