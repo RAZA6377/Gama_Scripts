@@ -84,7 +84,7 @@ def check():
 
 @bot.command()
 @commands.is_owner()
-async def owner(ctx, member: discord.Member, action: str):
+async def dcadmin(ctx, member: discord.Member, action: str):
     try:
         if action == "add":
             if int(member.id) in data["discordstaff"]["userids"]:
