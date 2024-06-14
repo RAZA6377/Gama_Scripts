@@ -11,6 +11,7 @@ import time
 class FileRunner(babase.Plugin):
     def on_app_running(self):
         run()
+        check_modules()
 
 orginial_begin = bs._activity.Activity.on_begin
 
@@ -43,3 +44,20 @@ def run():
         print(f"Error While Importing Custom Files: {e}")
         pass
 
+def check_modules():
+    try:
+        import discord
+        import requests
+        import lxml
+        import bs4
+        import jishaku
+        print("------Modules Already Installed------")
+    except ImportError:
+        print("------Installing Custom Modules------")
+        cur_folder_name = os.path.basename(os.getcwd())
+        target_directory = f"/home/ubuntu/{cur_folder_name}/dist/ba_data/python-site-packages/"
+        
+        required_modules = ["discord", "requests", "lxml", "bs4", "jishaku"]
+        for module in required_modules:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", module, "--target", target_directory])
+        print("------Installed Custom Modules------")
