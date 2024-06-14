@@ -58,12 +58,9 @@ def filter_chat_message(msg: str, client_id: int) -> str | None:
                 currentname = "<in-lobby>"
             displaystring = i['display_string']
     
-    if msg in ["!end", "Y", "N"]:
-        if msg == "!end":
-            print("Vote Started")
-            vh.start_vote(client_id, msg)
-        else:
-            vh.handle_votes(client_id, msg)
+    if msg in ["end", "quit", "maxplayer", "Y"]:
+        print("Started a vote")
+        vh.check_vote(msg, client_id)
     elif (str(command[0])).startswith('/') :
         cmd.Cmd(msg, client_id)
 
