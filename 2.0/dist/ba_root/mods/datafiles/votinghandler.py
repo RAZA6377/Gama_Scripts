@@ -2,6 +2,7 @@ import bascenev1 as bs
 import babase as ba
 import time
 
+# Will Recreate New
 vote_started = False
 voters = []
 vote_started_on = 0
