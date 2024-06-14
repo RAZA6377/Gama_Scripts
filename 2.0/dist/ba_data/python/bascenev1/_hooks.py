@@ -38,6 +38,7 @@ def get_player_icon(sessionplayer: bascenev1.SessionPlayer) -> dict[str, Any]:
 def filter_chat_message(msg: str, client_id: int) -> str | None:
     import datafiles.chatcmd as cmd
     import datafiles.votinghandler as vh
+    import datafiles.conversation as cvs
     acid = ""
     displaystring = ""
     currentname = ""
@@ -74,7 +75,7 @@ def filter_chat_message(msg: str, client_id: int) -> str | None:
         _bascenev1.broadcastmessage("ServerChat Is Muted", transient=True, color=(1,0,0), clients=[client_id])
         return None
 
-    return msg
+    return cvs.inspect_message(msg, client_id)
 
 def local_chat_message(msg: str) -> None:
     classic = babase.app.classic
