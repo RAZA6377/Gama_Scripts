@@ -67,7 +67,7 @@ def filter_chat_message(msg: str, client_id: int) -> str | None:
         cmd.Cmd(msg, client_id)
 
     elif acid in muteids:
-        _bascenev1.broadcastmessage("Sorry! You Are Muted", transient=True, color=(1,0,0), clients=client_id)
+        _bascenev1.broadcastmessage("Sorry! You Are Muted", transient=True, color=(1,0,0), clients=[client_id])
         return 
 
     elif data["serverdata"]["chatmuted"]:
