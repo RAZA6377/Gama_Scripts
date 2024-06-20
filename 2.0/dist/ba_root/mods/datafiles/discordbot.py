@@ -48,12 +48,12 @@ async def on_ready():
     global logschannel
     global guild_id
     channel = bot.get_channel(msgchannel)
-   logchannel = bot.get_channel(logschannel)
+    logchannel = bot.get_channel(logschannel)
     try:
         await channel.purge(limit=100)
         await logchannel.purge(limit=100)
         message = await channel.send("Server Live Stats")
-        logmsg = logchannel.send("Server Logs")
+        logmsg = await logchannel.send("Server Logs")
         log_msg.append(logmsg.id)
         bot_msg.append(message.id)
         print(bot_msg)
@@ -147,16 +147,23 @@ async def players():
         return "File not found"
 
 async def update_message():
+    global msgchannel
+    global guild_id
     try:
         data = await read_data_from_file()
         player = await players()
-        guild = bot.get_guild(1050804096388579380)
-        channel = bot.get_channel(1233132366978089151)
+        guild = bot.get_guild(guild_id)
+        channel = bot.get_channel(msgchannel)
         msgid = bot_msg[-1]
         message = await channel.fetch_message(msgid)
         embed = discord.Embed(title=f"`{server_name}`", description=f"**Live Players**```{player}```", color=0xA020F0)
+        boticon = None
+        if bot.user.avatar.url is not None:
+            boticon = bot.user.avatar.url
+        else:
+            boticon = None
         embed.add_field(name="Live Chat", value=f"```{data}```")
-        embed.set_footer(text=discord_server_name, icon_url=bot.user.avatar.url)
+        embed.set_footer(text=discord_server_name, icon_url=boticon)
         embed.set_author(name=discord_server_name, icon_url=guild.icon.url)
         await message.edit(content=None, embed=embed)
     except Exception as e:
@@ -169,8 +176,13 @@ async def server_log():
         channel = bot.get_channel(logschannel)
         msgid = log_msg[-1]
         message = await channel.fetch_message(msgid)
+        boticon = None
+        if bot.user.avatar.url is not None:
+            boticon = bot.user.avatar.url
+        else:
+            boticon = None
         embed = discord.Embed(title=f"Server Logs", description=data, color=0xA020F0)
-        embed.set_footer(text=discord_server_name, icon_url=bot.user.avatar.url)
+        embed.set_footer(text=discord_server_name, icon_url=boticon)
         embed.set_author(name=discord_server_name, icon_url=guild.icon.url)
         await message.edit(content=None, embed=embed)
     except Exception as e:
@@ -210,7 +222,7 @@ async def send(ctx, *, message: str):
 @bot.command()
 async def mp(ctx, maxplayers: int):
     try:
-        cmd = "/mp " + maxplayers
+        cmd = "/mp " + str(maxplayers)
         _ba.pushcall(Call(bs.chatmessage, cmd), from_other_thread=True)
         await ctx.send(f"Set Maxplayers Limit To {maxplayers}")
     except Exception as e:
