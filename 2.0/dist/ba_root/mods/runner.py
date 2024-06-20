@@ -10,13 +10,13 @@ import time
 # ba_meta export plugin
 class FileRunner(babase.Plugin):
     def on_app_running(self):
-        run()
         check_modules()
+        run()
 
 orginial_begin = bs._activity.Activity.on_begin
 
 def new_begin(self):
-    from datafiles import newvotehandler as vm
+    from datafiles import votinghandler as vm
     now = datetime.now()
     orginial_begin(self)
     vm.reset()
@@ -35,8 +35,6 @@ def run():
         db.run()
         from datafiles import ModifiedSpaz as ms
         ms.enable()
-        from datafiles import afkremover as ar
-        ar.start()
         from datafiles import playerlogger as ph
         ph.apply()
         print("Imported Custom Files")
@@ -54,7 +52,7 @@ def check_modules():
         print("------Modules Already Installed------")
     except ImportError:
         print("------Installing Custom Modules------")
-        cur_folder_name = os.path.basename(os.getcwd())
+        cur_folder_name = "Gama_Scripts/2.0"
         target_directory = f"/home/ubuntu/{cur_folder_name}/dist/ba_data/python-site-packages/"
         
         required_modules = ["discord", "requests", "lxml", "bs4", "jishaku"]
