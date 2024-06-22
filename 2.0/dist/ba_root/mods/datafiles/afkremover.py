@@ -38,10 +38,10 @@ def check_afk():
         last_input = int(player.actor._last_input_time)
         cid = player.sessionplayer.inputdevice.client_id
         now = int(time.time())
-        if now in range(last_input + 5, last_input + afk_cd + 5):
-            remain_time = afk_cd - (now - last_input -5)
+        if now in range(last_input, last_input + afk_cd):
+            remain_time = afk_cd - (now - last_input)
             bmsg(f"Press Any Button Within {remain_time} Seconds", color=(1, 0, 0), transient=True, clients=[cid])
-        if now > last_input + afk_cd + 5:
+        if now > last_input + afk_cd:
             print(f"Removing player {player} (client ID {cid}) for being AFK.")
             player.remove_from_game()
             add(cid)
