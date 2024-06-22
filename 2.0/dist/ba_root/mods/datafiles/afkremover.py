@@ -5,8 +5,8 @@ import time
 
 players = []
 session = bs.get_foreground_host_session
-afk_cd = 20
-check_interval = 1  # Check every second
+afk_cd = 15
+check_interval = 1000  # Check every second
 
 def get_player_info(clientID: int):
     clientID = int(clientID)
@@ -38,10 +38,10 @@ def check_afk():
         last_input = int(player.actor._last_input_time)
         cid = player.sessionplayer.inputdevice.client_id
         now = int(time.time())
-        if now in range(last_input, last_input + afk_cd):
-            remain_time = afk_cd - (now - last_input)
+        if now in range(last_input + 5, last_input + afk_cd + 5):
+            remain_time = afk_cd - (now - last_input -5)
             bmsg(f"Press Any Button Within {remain_time} Seconds", color=(1, 0, 0), transient=True, clients=[cid])
-        if now > last_input + afk_cd:
+        if now > last_input + afk_cd + 5:
             print(f"Removing player {player} (client ID {cid}) for being AFK.")
             player.remove_from_game()
             add(cid)
@@ -53,5 +53,8 @@ def check_afk():
             players.remove(clientid)
     except Exception as e:
         print(f"Error: {e}")
-
-
+def start():
+    if bs.get_foreground_host_session() is not None:
+        with bs.get_foreground_host_session().context:
+            bs.timer(check_interval, check_afk, repeat=True)
+            print("Afk Remover Started")
