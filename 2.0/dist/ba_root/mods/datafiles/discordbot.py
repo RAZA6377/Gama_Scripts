@@ -98,7 +98,7 @@ async def dcadmin(ctx, member: discord.Member, action: str):
             if int(member.id) not in data["discordstaff"]["userids"]:
                 await ctx.send("User Is Not An Admin")
             else:
-                data["discordstaff"]["userids"].pop(int(member.id))
+                data["discordstaff"]["userids"].remove(int(member.id))
                 with open(staff_file, "w") as file:
                     json.dump(data, file, indent=4)
                 await ctx.send(f"<@{member.id}> Has Been Removed From Admin List")
