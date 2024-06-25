@@ -51,11 +51,11 @@ class ChatSaver(object):
 
     def check_ban(self):
         ban_path = ba.env()["python_directory_user"] + "/datafiles/staff.json"
-        print(f"Ban path: {ban_path}")  # Debugging output
+        
         try:
             with open(ban_path, "r") as f:
                 data = json.load(f)
-            print(f"Data loaded: {data}")  # Debugging output
+            
         except FileNotFoundError:
             print(f"File not found: {ban_path}")
             return
