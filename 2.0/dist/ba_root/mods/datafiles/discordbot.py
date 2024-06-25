@@ -74,7 +74,7 @@ def check():
 
                 return True
 
-            return False
+            return False, "You Are Not Whitelisted"
 
         except Exception as e:
             print(e)
