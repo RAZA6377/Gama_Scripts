@@ -20,7 +20,7 @@ def read_file(path):
     return data
 
 def write_file(path, data):
-    with open(path, "r+") as f:
+    with open(path, "w") as f:
         f.write(data)
     
 logspath = ba.env()["python_directory_user"] + "/logs/server.log"
